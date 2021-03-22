@@ -1,10 +1,10 @@
 cabal-version:      2.4
-name:               r-poc
+name:               r-blacklist
 version:            0.1.0.0
 
 -- synopsis:
 -- description:
-homepage:           https://github.com/githubuser/r-poc#readme
+homepage:           https://github.com/jhrcek/r-blacklist
 license:            BSD-3-Clause
 license-file:       LICENSE
 author:             Author name here
@@ -14,7 +14,7 @@ category:           Web
 build-type:         Simple
 extra-source-files: README.md
 
-executable r-poc
+executable r-blacklist
   hs-source-dirs:   src
   main-is:          Main.hs
   default-language: Haskell2010

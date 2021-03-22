@@ -20,7 +20,7 @@ main :: IO ()
 main = do
     args <- getArgs
     case args of
-        [] -> error "Usage: r-poc path/to/script.R"
+        [] -> error "Usage: r-blacklist path/to/script.R"
         (file : _) -> do
             namesOfUsedFunctions <- R.withEmbeddedR R.defaultConfig $ R.runRegion $ listFunctionsUsedIn file
             print namesOfUsedFunctions
