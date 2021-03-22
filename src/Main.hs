@@ -13,19 +13,22 @@ import Control.Memory.Region (V)
 import Foreign.R (SEXP, SEXPTYPE (Char))
 import H.Prelude (R, SomeSEXP (..))
 import Language.R.QQ (r)
+import System.Environment (getArgs)
 
 
 main :: IO ()
 main = do
-    putStrLn "Give me .R file you want to check:"
-    file <- getLine
-    functionsUsed <- R.withEmbeddedR R.defaultConfig $ R.runRegion $ listFunctionsUsedIn file
-    print functionsUsed
+    args <- getArgs
+    case args of
+        [] -> error "Usage: r-poc path/to/script.R"
+        (file : _) -> do
+            namesOfUsedFunctions <- R.withEmbeddedR R.defaultConfig $ R.runRegion $ listFunctionsUsedIn file
+            print namesOfUsedFunctions
 
 
 listFunctionsUsedIn :: FilePath -> R s (Maybe [String])
 listFunctionsUsedIn file = do
-    SomeSEXP sexp <- [r| "hello" |]
+    SomeSEXP sexp <- [r| expr <- parse(file_hs); all.names(expr, functions=TRUE);|]
     pure $ case HE.hexp sexp of
         (HE.String vecVec) -> Just $ VS.foldr (\x xs -> unwrapString x : xs) [] vecVec
         _ -> Nothing
