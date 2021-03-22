@@ -28,7 +28,7 @@ main = do
 
 listFunctionsUsedIn :: FilePath -> R s (Maybe [String])
 listFunctionsUsedIn file = do
-    SomeSEXP sexp <- [r| expr <- parse(file_hs); all.names(expr, functions=TRUE);|]
+    SomeSEXP sexp <- [r| expr <- parse(file_hs); all.names(expr, functions=TRUE, unique=TRUE);|]
     pure $ case HE.hexp sexp of
         (HE.String vecVec) -> Just $ VS.foldr (\x xs -> unwrapString x : xs) [] vecVec
         _ -> Nothing

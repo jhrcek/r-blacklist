@@ -1,9 +1,6 @@
 cabal-version:      2.4
 name:               r-blacklist
 version:            0.1.0.0
-
--- synopsis:
--- description:
 homepage:           https://github.com/jhrcek/r-blacklist
 license:            BSD-3-Clause
 license-file:       LICENSE
